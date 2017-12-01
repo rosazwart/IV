@@ -6,6 +6,6 @@ int main ( ) {
    grootgetal A;
    grootgetal B;
    grootgetal C;
-   menu (gg);
+   menu (A, B, C);
    return 0;
 } //main

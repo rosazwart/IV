@@ -11,19 +11,15 @@ class grootgetal {
    private:
       cijfervakje* ingang;      //begin vd rij cijfervakjes
       cijfervakje* uitgang;     //eind vd rij cijfervakjes
-      int teller;              //aantal gebruikte cijfervakjes
+      int teller;               //aantal gebruikte cijfervakjes
    public:
       grootgetal ( );           //constructor declaratie
       ~grootgetal ( );          //destructor declaratie
+      int getal;
       void print ( );
       void leesin ( );
-      //void telop (gg1, gg2);
-      //void fibonacci (n);
-      //void vermenigvuldig (gg1, gg2);
-      void maakaan (x);
       void voegachter ( );
-      void maakeen ( );
-      //void maaknullen (m);
+      void voegvoor ( );
       void vernietig ( );
       void kopieer ( );
 }; //grootgetal

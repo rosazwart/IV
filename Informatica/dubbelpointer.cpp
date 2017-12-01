@@ -127,16 +127,21 @@ void lijst::grabstuff()
 
 int main () {
   lijst L;
-  L.grabstuff ();
-  L.bouwlijst (5);
-  L.bouwlijst (4);
-  L.bouwlijst (5);
-  L.bouwlijst (5);
-  L.bouwlijst (2);
-  L.bouwlijst (1);
+  //L.bouwlijst (1);
+  //L.bouwlijst (2);
+  //L.bouwlijst (3);
+  //L.bouwlijst (4);
+  //L.bouwlijst (5);
+  //L.bouwlijst (6);
+  L.bouwachter (1);
+  L.bouwachter (2);
+  L.bouwachter (3);
+  L.bouwachter (4);
+  L.bouwachter (5);
+  L.bouwachter (6);
     
-	L.afdrukkenVA ( );
-  L.afdrukkenAV ( );
+  L.afdrukkenVA ( );
+  //L.afdrukkenAV ( );
   return 0;
 }//main
 

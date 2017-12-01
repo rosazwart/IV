@@ -14,9 +14,25 @@ grootgetal::~grootgetal ( ) {
 
 //FUNCTIES GG
 //print grote getallen
-void grootgetal::print ( ) {
-    cout << "Welk grote getal moet worden geprint? Kies... [A] [B] [C]" << endl;
-} //print
+void grootgetal::printVA ( ) {
+   cijfervakje* p = ingang; //hulppointer gaat lijst af ->
+   cout << "||" ;
+   while ( p != NULL ) {
+      cout << p->info << " " ;
+      p = p->volgende;
+   }//while
+   cout << "||" << endl;
+} //printVA
+
+void grootgetal::printAV ( ) {
+	cijfervakje* p = uitgang; //hulppointer gaat lijst af <-+
+   cout << "||" ;
+   while ( p != NULL ) {
+      cout << p->info << " " ;
+      p = p->vorige;
+   }//while
+   cout << "||" << endl;
+} //printAV
 
 //lees groot getal in
 void grootgetal::leesin ( ) {
@@ -35,54 +51,82 @@ void grootgetal::leesin ( ) {
 //HULPFUNCTIES GG
 //voeg een cijfervakje met gegeven getal achteraan reeds gebouwde grote getal toe
 void grootgetal::voegachter ( ) {
-   cijfervakje* hulp;
-   hulp = new cijfervakje;
-
+	element* hulp = new element;
+	hulp->info = getal;
+	if (uitgang==NULL) {				//als lijst nog niet gemaakt is
+		hulp->volgende = NULL;
+		hulp->vorige = NULL;
+		uitgang = hulp;
+		ingang = hulp;
+	}//if
+	else {
+		uitgang->volgende = hulp;
+		hulp->vorige = uitgang;
+		uitgang = hulp;
+	} //else
 }//voegachter
 
-//grote getal stelt het (kleine) getal 1 voor: een cijfervakje
-void grootgetal::maakeen ( ) {
-}//maakeen
-
-//maak een "groot getal" bestaande uit m cijfervakjes met 0 erin
-//void grootgetal::maaknullen (m) {
-//}//maaknullen
+void grootgetal::voegvoor ( ) {
+	element* hulp = new element;
+	hulp->info = n;
+	if (ingang==NULL) {
+		hulp->volgende = NULL;
+		hulp->vorige = NULL;
+		ingang = hulp;
+		uitgang = hulp;
+	}//if
+	else {
+		ingang->vorige = hulp;
+		hulp->volgende = ingang;
+		ingang = hulp;
+	}//else
+}//voegvoor
 
 //gooi alle door het grote getal gebruikte cijfervakjes weg
 void grootgetal::vernietig ( ) {
 }//vernietig
 
-//
 void grootgetal::kopieer ( ) {
 }//kopieer
-
-//FUNCTIES CIJFERVAKJE
 
 //FUNCTIES OVERIG
 
 //optie inlezen
 char inlees ( ) {
-   char invoer, uitvoer;
-   while (invoer != '\n') {
+   char invoer = '\n';
+   while (invoer == '\n') {
       invoer = cin.get( );
-      if (invoer != '\n') {
-         uitvoer = invoer;
-      }//if
-   } //while
-   return uitvoer;
+	}//while
 } //inlees
 
-//dit is het MENU
-void menu (grootgetal & gg) {
+//PRINT MENU
+void printmenu (grootgetal & A, & B, & C) {
+	cout << "Welk grote getal moet worden geprint? Kies... [A] [B] [C]" << endl;
+	case 'a': case 'A':
+		cout << "A:" << endl;
+		A.printAV ( );
+		break;
+	case 'b': case 'B':
+		cout << "B:" << endl;
+		B.printAV ( );
+		break;
+	case 'c': case 'C':
+		cout << "C:" << endl;
+		C.printAV ( );
+		break;
+} //printmenu
+
+//MENU
+void menu (grootgetal & A, & B, & C) {
    while (true) {
       cout << "Kies uit... [i]nvoeren, [a]fdrukken, [o]ptellen, ";
       cout << "[v]ermenigvuldigen, [f]ibonacci, [s]toppen" << endl;
       switch (inlees ( )) {
          case 'i': case 'I':
-            gg.leesin ( );
+         
             break;
          case 'a': case 'A':
-            gg.print ( );
+         	printmenu (A, B, C);
             break;
          case 'o': case 'O':
             cout << "Hier wordt opgeteld." << endl;
