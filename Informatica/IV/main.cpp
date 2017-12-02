@@ -1,11 +1,12 @@
 #include "gg.h"
 
-void menu (grootgetal & gg);
+void menu (grootgetal & A);
 
 int main ( ) {
    grootgetal A;
    grootgetal B;
    grootgetal C;
-   menu (A, B, C);
+   A.leesin ( );
+   A.printVA ( );
    return 0;
 } //main

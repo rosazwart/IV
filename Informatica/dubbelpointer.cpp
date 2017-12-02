@@ -18,7 +18,10 @@
 //
 
 #include <iostream>
+#include <cmath> 
 using namespace std;
+
+int t = 0;
 
 class element {
   public:
@@ -33,11 +36,13 @@ class lijst {
     element* uitgang;
   public:
     lijst ( );
+    int k ;
     void afdrukkenVA ( );
     void afdrukkenAV ( );
-    void bouwlijst (int n);
-    void bouwachter (int n);
+    void bouwlijst (int getal);
+    void bouwachter (int getal);
     void grabstuff ( );
+    void leesin ( );
 };//lijst
 
 //   +-----+      +-----+----+-----+        +-----+----+-----+      +-----+
@@ -59,10 +64,9 @@ lijst::lijst ( ) {
 // druk lijst af, van voor naar achter
 void lijst::afdrukkenVA ( ) {
    element* p = ingang; //hulppointer gaat lijst af ->
-   cout << "ingang->uitgang" << endl;
    cout << "||" ;
    while ( p != NULL ) {
-      cout << p->info << "|" ;
+      cout << p->info << " " ;
       p = p->volgende;
    }//while
    cout << "||" << endl;
@@ -71,19 +75,18 @@ void lijst::afdrukkenVA ( ) {
 // druk lijst af, van achter naar voor
 void lijst::afdrukkenAV ( ) {
    element* p = uitgang; //hulppointer gaat lijst af <-
-   cout << "uitgang -> ingang" << endl;
    cout << "||" ;
    while ( p != NULL ) {
-      cout << p->info << "|" ;
+      cout << p->info << " " ;
       p = p->vorige;
    }//while
    cout << "||" << endl;
 }//lijst::afdrukkenAV
 
 // maak lijst met n elementen, bevattende 10,20,...,10*n
-void lijst::bouwlijst (int n) {
+void lijst::bouwlijst (int getal) {
 	    element* hulp = new element;
-	    hulp->info = n;
+	    hulp->info = getal;
 				if (ingang==NULL) {
 				hulp->volgende = NULL;
 				hulp->vorige = NULL;
@@ -99,9 +102,9 @@ void lijst::bouwlijst (int n) {
 
 
 // maak lijst met n elementen, bevattende 10,20,...,10*n
-void lijst::bouwachter (int n) {
+void lijst::bouwachter (int getal) {
 	    element* hulp = new element;
-	    hulp->info = n;
+	    hulp->info = getal;
 				if (uitgang==NULL) {
 				hulp->volgende = NULL;
 				hulp->vorige = NULL;
@@ -115,14 +118,40 @@ void lijst::bouwachter (int n) {
 			}
 }//lijst::bouwlijst
 
-void lijst::grabstuff()
-{
-	int test = 0;
-	while(cin.get() != '\n'){
-		test = cin.get();
-		test = test * 10 + cin.get();
-		bouwlijst(test);
-		}
+//lees groot getal in
+void lijst::leesin ( ) {
+	int k = 4, getal = 0;
+	char invoer = 0;
+	while ( invoer != '\n' ) {
+		invoer = cin.get();
+		getal = getal * 10 + (invoer - '0');
+		if ( (getal*10) >= (pow(10, k)) ) {
+			t++;
+			bouwachter(getal);
+			getal = 0;
+		}//if
+	}//while
+}//leesin
+
+void lijst::grabstuff()	{
+	int k = 4, getal = 0;
+	char invoer = 0;
+	while ( invoer != '\n' ) {
+		invoer = cin.get();
+		getal = getal * 10 + (invoer - '0');
+		if ( (getal*10) >= (pow(10, k)) ) {
+			t++;
+			bouwachter(getal);
+			getal = 0;
+		}//if
+	}//while
+		
+	//int test = 0;
+	//while(cin.get() != '\n'){
+	//test = cin.get();
+	//test = test * 10 + cin.get();
+	//bouwlijst(test);
+	//}//while
 }
 
 int main () {
@@ -133,14 +162,17 @@ int main () {
   //L.bouwlijst (4);
   //L.bouwlijst (5);
   //L.bouwlijst (6);
-  L.bouwachter (1);
-  L.bouwachter (2);
-  L.bouwachter (3);
-  L.bouwachter (4);
-  L.bouwachter (5);
-  L.bouwachter (6);
-    
+  //L.bouwachter (1);
+  //L.bouwachter (2);
+  //L.bouwachter (3);
+  //L.bouwachter (4);
+  //L.bouwachter (5);
+  //L.bouwachter (6);
+  //L.afdrukkenVA ( );
+  
+  L.leesin();
   L.afdrukkenVA ( );
+  cout << "(" << t << ")" << endl;
   //L.afdrukkenAV ( );
   return 0;
 }//main

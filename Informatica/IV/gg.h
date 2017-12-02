@@ -16,10 +16,11 @@ class grootgetal {
       grootgetal ( );           //constructor declaratie
       ~grootgetal ( );          //destructor declaratie
       int getal;
-      void print ( );
+      void printVA ( );
+      void printAV ( );
       void leesin ( );
-      void voegachter ( );
-      void voegvoor ( );
+      void voegachter (int getal);
+      void voegvoor (int getal);
       void vernietig ( );
       void kopieer ( );
 }; //grootgetal

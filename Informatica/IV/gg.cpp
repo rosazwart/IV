@@ -1,6 +1,9 @@
 #include "gg.h"
 #include <iostream>
+#include <cmath>
 using namespace std;
+
+int t = 0;
 
 //constructor
 grootgetal::grootgetal ( ) {
@@ -25,7 +28,7 @@ void grootgetal::printVA ( ) {
 } //printVA
 
 void grootgetal::printAV ( ) {
-	cijfervakje* p = uitgang; //hulppointer gaat lijst af <-+
+	cijfervakje* p = uitgang; //hulppointer gaat lijst af <-
    cout << "||" ;
    while ( p != NULL ) {
       cout << p->info << " " ;
@@ -36,22 +39,24 @@ void grootgetal::printAV ( ) {
 
 //lees groot getal in
 void grootgetal::leesin ( ) {
-   int letterteller = 0;
-   cout << "Als welk groot getal moet de invoer worden ingelezen? Kies..." ;
-   cout << " [A] [B] [C]" << endl;
-   int invoer_info = cin.get ( );
-   maakaan (invoer_info);
-   while ( invoer_info != '\n') {
-      letterteller++;
-      voegachter ( );
-      invoer_info = cin.get;
-   }//while
+	int k = 4, getal = 0;
+	char getalinvoer = '\n';
+	while ( getalinvoer != '\n' ) {
+		getalinvoer = cin.get();
+		cout << "Ja" << endl;
+		getal = getal * 10 + (getalinvoer - '0');
+		if ( (getal*10) >= (pow(10, k)) ) {
+			t++;
+			voegachter(getal);
+			getal = 0;
+		}//if
+	}//while
 }//leesin
 
 //HULPFUNCTIES GG
 //voeg een cijfervakje met gegeven getal achteraan reeds gebouwde grote getal toe
-void grootgetal::voegachter ( ) {
-	element* hulp = new element;
+void grootgetal::voegachter (int getal) {
+	cijfervakje* hulp = new cijfervakje;
 	hulp->info = getal;
 	if (uitgang==NULL) {				//als lijst nog niet gemaakt is
 		hulp->volgende = NULL;
@@ -66,9 +71,9 @@ void grootgetal::voegachter ( ) {
 	} //else
 }//voegachter
 
-void grootgetal::voegvoor ( ) {
-	element* hulp = new element;
-	hulp->info = n;
+void grootgetal::voegvoor (int getal) {
+	cijfervakje* hulp = new cijfervakje;
+	hulp->info = getal;
 	if (ingang==NULL) {
 		hulp->volgende = NULL;
 		hulp->vorige = NULL;
@@ -97,36 +102,54 @@ char inlees ( ) {
    while (invoer == '\n') {
       invoer = cin.get( );
 	}//while
+	return invoer;
 } //inlees
 
+//INVOER MENU
+void invoermenu (grootgetal & A) {
+	cout << "Welk grote getal moet worden ingevoerd? Kies... [A] [B] [C]" << endl;
+	switch (inlees ( )) {
+		case 'a': case 'A':
+			cout << "A:" << endl;
+			A.leesin ( );
+			break;
+		case 'b': case 'B':
+			cout << "B:" << endl;
+			break;
+		case 'c': case 'C':
+			cout << "C:" << endl;
+			break;
+	}//switch
+} //invoermenu
+
 //PRINT MENU
-void printmenu (grootgetal & A, & B, & C) {
+void printmenu (grootgetal & A) {
 	cout << "Welk grote getal moet worden geprint? Kies... [A] [B] [C]" << endl;
-	case 'a': case 'A':
-		cout << "A:" << endl;
-		A.printAV ( );
-		break;
-	case 'b': case 'B':
-		cout << "B:" << endl;
-		B.printAV ( );
-		break;
-	case 'c': case 'C':
-		cout << "C:" << endl;
-		C.printAV ( );
-		break;
+	switch (inlees ( )) {
+		case 'a': case 'A':
+			cout << "A:" << endl;
+			A.printVA ( );
+			break;
+		case 'b': case 'B':
+			cout << "B:" << endl;
+			break;
+		case 'c': case 'C':
+			cout << "C:" << endl;
+			break;
+	}//switch
 } //printmenu
 
 //MENU
-void menu (grootgetal & A, & B, & C) {
+void menu (grootgetal & A) {
    while (true) {
       cout << "Kies uit... [i]nvoeren, [a]fdrukken, [o]ptellen, ";
       cout << "[v]ermenigvuldigen, [f]ibonacci, [s]toppen" << endl;
       switch (inlees ( )) {
          case 'i': case 'I':
-         
+         	invoermenu (A);
             break;
          case 'a': case 'A':
-         	printmenu (A, B, C);
+         	printmenu (A);
             break;
          case 'o': case 'O':
             cout << "Hier wordt opgeteld." << endl;
